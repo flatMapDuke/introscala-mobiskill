@@ -1,7 +1,7 @@
 package recorder
 
 
-import reflect.macros.Context
+import reflect.macros.whitebox.Context
 import org.scalatest.exceptions._
 import reflect.internal.Chars
 import collection.mutable.ArrayBuffer
@@ -16,14 +16,36 @@ class RecorderMacro[C <: Context](val context: C) {
 
     val texts = getTexts(testFun.tree)
 
-    reify {
+
+    val tree = q"""
+
+        val testExpressionLineStart:Int = ${texts._2}
+        val testExpressionLineEnd:Int  = ${texts._3}
+
+        import recorder._
+        MyFunSuite.testBody($testName, $suite, $anchorRecorder)($testFun)(new TestContext(
+          ${texts._1}, testExpressionLineStart, testExpressionLineEnd))
+
+
+     """
+
+
+
+     context.Expr(tree)
+
+
+
+    /*reify {
+
+
+
         val testExpressionLineStart:Int = context.literal(texts._2).splice
 
         val testExpressionLineEnd:Int  = context.literal(texts._3).splice
 
         MyFunSuite.testBody(testName.splice, suite.splice, anchorRecorder.splice)(testFun.splice)(new TestContext(
           context.literal(texts._1).splice, testExpressionLineStart, testExpressionLineEnd))
-    }
+    }*/
   }
 
 
@@ -63,15 +85,20 @@ object RecorderMacro {
   def anchor[T: context.WeakTypeTag](context: Context)(a : context.Expr[T]):context.Expr[Unit] = {
     import context.universe._
 
-    val aCode = context.literal(show(a.tree))
 
-    val line = context.literal(a.tree.pos.line)
 
-    val resultExp = reify {("" + a.splice)}
+    val aCode = q"${show(a.tree)}"
+
+
+    val line = q"${a.tree.pos.line}"
+
+    val resultExp = reify {
+      "" + a.splice
+    }
 
     context.Expr[Unit](
       Apply(Select(Select(
-        context.prefix.tree, newTermName("anchorRecorder")), newTermName("record")), List(aCode.tree, line.tree, resultExp.tree))
+        context.prefix.tree, TermName("anchorRecorder")), TermName("record")), List(aCode, line, resultExp.tree))
 
     )
 
