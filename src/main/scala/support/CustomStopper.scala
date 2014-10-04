@@ -25,4 +25,10 @@ object CustomStopper extends Stopper{
     }
   }
 */
+
+  private var isStopRequested = false
+
+  override def stopRequested = false
+
+  override def requestStop() = isStopRequested = true
 }

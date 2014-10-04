@@ -1,7 +1,6 @@
 package support
 
-import org.scalatest.{Tag, FunSuite}
-import org.scalatest.{Tracker, Stopper, Reporter, FunSuite}
+import org.scalatest._
 import org.scalatest.matchers.{Matcher, ShouldMatchers}
 import org.scalatest.events.{TestPending, TestFailed, TestIgnored, Event, InfoProvided}
 import org.scalatest.exceptions.{TestPendingException}
@@ -131,9 +130,11 @@ trait HandsOnSuite extends MyFunSuite with ShouldMatchers {
     }
   }
 
-  protected override def runTest(testName: String, reporter: Reporter, stopper: Stopper, configMap: Map[String, Any], tracker: Tracker) {
+  protected override def runTest(testName: String, args : Args): Status = {
     if (!CustomStopper.oneTestFailed) {
-      super.runTest(testName, new ReportToTheStopper(reporter), CustomStopper, configMap, tracker)
+      super.runTest(testName, args.copy(reporter = new ReportToTheStopper(args.reporter)))
+    }  else {
+      SucceededStatus
     }
   }
 }

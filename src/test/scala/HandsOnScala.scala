@@ -9,13 +9,13 @@ import un_sac_avec_des_items._
 import org.scalatest._
 import support.CustomStopper
 
-class HandsOn extends Suite {
-  override def run(testName: Option[String], reporter: Reporter, stopper: Stopper, filter: Filter,
-                   configMap: Map[String, Any], distributor: Option[Distributor], tracker: Tracker) {
-    if(!CustomStopper.oneTestFailed)
-    super.run(testName, reporter, CustomStopper, filter, configMap, distributor, tracker)
-  }
+import scala.collection.immutable.{IndexedSeq => List}
+
+
+trait HandsOn extends Suite {
+
 }
+
 
 class HandsOnScala extends HandsOn {
   override def nestedSuites = List(
