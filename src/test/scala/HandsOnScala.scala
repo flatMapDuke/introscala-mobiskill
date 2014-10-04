@@ -1,18 +1,16 @@
-import premiers_pas._
-import pas_suivant._
-import we_need_to_go_deeper._
-import cons_et_nil._
 import bonus_event_sourcing._
+import cons_et_nil._
+import org.scalatest._
+import pas_suivant._
+import premiers_pas._
 import type_classes._
 import un_sac_avec_des_items._
-
-import org.scalatest._
-import support.CustomStopper
+import we_need_to_go_deeper._
 
 import scala.collection.immutable.{IndexedSeq => List}
 
 
-trait HandsOn extends Suite {
+trait HandsOn extends Spec {
 
 }
 

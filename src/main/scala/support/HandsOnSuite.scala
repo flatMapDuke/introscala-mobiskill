@@ -11,12 +11,13 @@ import language.experimental.macros
 import scala.Some
 
 
-trait HandsOnSuite extends MyFunSuite with ShouldMatchers {
+trait HandsOnSuite extends MyFunSuite with Matchers {
   def __ : Matcher[Any] = {
     throw new NotImplementedError("__")
   }
 
   implicit val suite:MyFunSuite = this
+
 
 
 
@@ -31,7 +32,7 @@ trait HandsOnSuite extends MyFunSuite with ShouldMatchers {
 
   = macro RecorderMacro.apply  */
 
-  private class ReportToTheStopper(other: Reporter) extends Reporter {
+  private class ReportToTheStopper(other: Reporter, stopper: Stopper) extends Reporter {
     var failed = false
 
     def headerFail =    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n               TEST FAILED                 \n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -40,6 +41,11 @@ trait HandsOnSuite extends MyFunSuite with ShouldMatchers {
     def footerPending = "*******************************************"
 
     def sendInfo(header: String, suite: String, test: String, location: Option[String], message: Option[String], context: Option[String], footer: String) {
+
+      def info(s: String): Unit = {
+        note(s)
+      }
+
       header.split("\n").foreach(info(_))
 
       info( "Suite    : " + suite.replace("\n","") )
@@ -59,8 +65,7 @@ trait HandsOnSuite extends MyFunSuite with ShouldMatchers {
       })
       info("")
       footer.split("\n").foreach(info(_))
-      CustomStopper.testFailed
-
+      stopper.requestStop()
     }
 
     def sendFail(e:MyException, suite:String, test:String) = {
@@ -130,12 +135,9 @@ trait HandsOnSuite extends MyFunSuite with ShouldMatchers {
     }
   }
 
+
   protected override def runTest(testName: String, args : Args): Status = {
-    if (!CustomStopper.oneTestFailed) {
-      super.runTest(testName, args.copy(reporter = new ReportToTheStopper(args.reporter)))
-    }  else {
-      SucceededStatus
-    }
+    super.runTest(testName, args.copy(reporter = new ReportToTheStopper(args.reporter, args.stopper)))
   }
 }
 
