@@ -6,6 +6,7 @@ Auteurs
 * Mathieu Chataigner [@mchataigner](https://twitter.com/mchataigner)
 * Jonathan Winandy [@ahoy_jon](https://twitter.com/ahoy_jon)
 * Jean Helou [@jeanhelou](https://twitter.com/jeanhelou)
+* Valentin Kasas [@ValentinKasas](https://twitter.com/valentinkasas)
 
 Pré-requis
 ------------
