@@ -1,4 +1,4 @@
-scalaVersion := "2.10.0"
+scalaVersion := "2.11.2"
 
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
@@ -15,11 +15,11 @@ showSuccess := false
 
 offline := true
 
-libraryDependencies += "org.scala-lang" % "scala-reflect" % "2.10.0"
+libraryDependencies += "org.scala-lang" % "scala-reflect" % "2.11.2"
 
-libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.10.0"
+libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.11.2"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "1.9.1"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.2"
 
 addCommandAlias("partie1-1", "~ test-only premiers_pas")
 
