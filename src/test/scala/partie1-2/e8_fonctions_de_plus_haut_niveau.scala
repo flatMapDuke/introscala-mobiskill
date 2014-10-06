@@ -32,7 +32,12 @@ class e8_fonctions_de_plus_haut_niveau extends HandsOnSuite {
   *   }
   */
   exercice("Une fonction anonyme comme variable") {
-    val lambda = (x: Int) => x + 1
+    val lambda = (x: Int) => {
+      anchor(x)
+      x + 1
+    }
+
+     
     def result = List(1, 2, 3) map lambda
     // le compilateur Scala fait de l’inférence de type donc on peut se passer de préciser le type
     // des variables que l’on définit
