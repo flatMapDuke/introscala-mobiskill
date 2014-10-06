@@ -2,7 +2,6 @@ package recorder
 
 import org.scalatest.{Args, Tag, FunSuite}
 import java.io.File
-import support.CustomStopper
 
 import collection.mutable.ArrayBuffer
 import org.scalatest.exceptions.TestFailedException
