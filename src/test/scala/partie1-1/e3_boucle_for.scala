@@ -21,7 +21,7 @@ class e3_boucle_for extends HandsOnSuite {
     // une autre console sbt pour aller voir ce qu’est un Range.
     // pour cela lancez un autre handson. Puis pour lancer l’interpréteur Scala, taper 'console'.
     // Vous pouvez ensuite écrire du code Scala !
-    anchor(quelqueNombres)
+    pprint(quelqueNombres)
 
     var somme = 0
     for (i <- quelqueNombres) {
@@ -73,12 +73,12 @@ class e3_boucle_for extends HandsOnSuite {
     //En ce qui concerne les fonctions d’ordre supérieur et les lambda expression,
     //un jeu de tests est prévu dans la suite de l’atelier
 
-    anchor(uneListe)
+    pprint(uneListe)
 
     uneListe.reduceLeft(
       //reduceLeft prend une fonction en paramètre
       (k,l) => {
-      anchor(k,l)
+      pprint(k,l)
       k + l
       }) should be(__)
   }
@@ -101,7 +101,7 @@ class e3_boucle_for extends HandsOnSuite {
       (x, y)
     }
 
-    anchor(coordinates)
+    pprint(coordinates)
 
     coordinates(4) should be(__)
   }

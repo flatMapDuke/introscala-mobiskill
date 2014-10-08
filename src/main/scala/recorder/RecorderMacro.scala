@@ -12,7 +12,7 @@ class RecorderMacro[C <: Context](val context: C) {
 
   def apply(testName: context.Expr[String])
            (testFun: context.Expr[Unit])
-           (suite: context.Expr[MyFunSuite], anchorRecorder:context.Expr[AnchorRecorder]): context.Expr[Unit] = {
+           (suite: context.Expr[MyFunSuite], anchorRecorder:context.Expr[PPrintRecorder]): context.Expr[Unit] = {
 
     val texts = getTexts(testFun.tree)
 
@@ -76,13 +76,13 @@ object RecorderMacro {
 
   def apply(context: Context)(testName: context.Expr[String])
            (testFun: context.Expr[Unit])
-           (suite: context.Expr[MyFunSuite], anchorRecorder: context.Expr[AnchorRecorder]): context.Expr[Unit] = {
+           (suite: context.Expr[MyFunSuite], anchorRecorder: context.Expr[PPrintRecorder]): context.Expr[Unit] = {
 
     new RecorderMacro[context.type](context).apply(testName)(testFun)(suite, anchorRecorder)
   }
 
 
-  def anchor[T: context.WeakTypeTag](context: Context)(a : context.Expr[T]):context.Expr[Unit] = {
+  def pprint[T: context.WeakTypeTag](context: Context)(a : context.Expr[T]):context.Expr[Unit] = {
     import context.universe._
 
 
@@ -98,7 +98,7 @@ object RecorderMacro {
 
     context.Expr[Unit](
       Apply(Select(Select(
-        context.prefix.tree, TermName("anchorRecorder")), TermName("record")), List(aCode, line, resultExp.tree))
+        context.prefix.tree, TermName("pprintRecorder")), TermName("record")), List(aCode, line, resultExp.tree))
 
     )
 

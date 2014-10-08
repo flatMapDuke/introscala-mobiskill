@@ -9,7 +9,7 @@ import annotation.switch
 
 trait MyFunSuite extends FunSuite {
 
-  implicit val anchorRecorder = new AnchorRecorder()
+  implicit val pprintRecorder = new PPrintRecorder()
 
   def testPublic(testName: String)(testFun: => Unit) {
    test(testName)(testFun)
@@ -17,7 +17,7 @@ trait MyFunSuite extends FunSuite {
 }
 
 object MyFunSuite  {
-  def testBody(testName: String, suite: MyFunSuite, anchorRecorder: AnchorRecorder)(testFun: => Unit)(context: TestContext) {
+  def testBody(testName: String, suite: MyFunSuite, anchorRecorder: PPrintRecorder)(testFun: => Unit)(context: TestContext) {
 
     suite.testPublic(testName)({
 
@@ -116,9 +116,9 @@ object MyFunSuite  {
     })
   }
 
-  def mergeSourceAndAnchor(source:List[(String,Int)], anchorsMessages:List[AnchorValue]): List[(String, Int, Option[String])] = {
+  def mergeSourceAndAnchor(source:List[(String,Int)], anchorsMessages:List[PPrintValue]): List[(String, Int, Option[String])] = {
 
-    def anchor(line:Int, anchorsMessages:List[AnchorValue]):Option[String] = {
+    def anchor(line:Int, anchorsMessages:List[PPrintValue]):Option[String] = {
       val mess = anchorsMessages.filter( _.line == line)
                 .map( a => a.name + " => " + a.value).mkString("\n")
       if(mess.trim == "")None else Some(mess)
@@ -131,7 +131,7 @@ object MyFunSuite  {
     }
   }
 
-  def prettyShow(source:Array[(String,Int)], errorLine:Int, anchorsMessages:List[AnchorValue]): List[String] = {
+  def prettyShow(source:Array[(String,Int)], errorLine:Int, anchorsMessages:List[PPrintValue]): List[String] = {
     def intLen(i:Int) = i.toString.length
 
     val len:Int = 4

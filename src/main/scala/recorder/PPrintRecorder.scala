@@ -7,13 +7,13 @@ package recorder
  * Time: 11:49 PM
  * To change this template use File | Settings | File Templates.
  */
-class AnchorRecorder {
+class PPrintRecorder {
 
-  var records:List[AnchorValue] = Nil
+  var records:List[PPrintValue] = Nil
 
 
   def record(name:String, line:Int, value:String):Unit =  {
-    records = AnchorValue(name, line, value) :: records
+    records = PPrintValue(name, line, value) :: records
   }
 
   def reset() {
@@ -21,7 +21,7 @@ class AnchorRecorder {
   }
 }
 
-case class AnchorValue(name:String, line:Int, value:String)  {
+case class PPrintValue(name:String, line:Int, value:String)  {
 
   def toMessage():String = s" anchor line $line | $name => $value"
 }
