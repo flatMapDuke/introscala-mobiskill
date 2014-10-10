@@ -33,7 +33,7 @@ class e8_fonctions_de_plus_haut_niveau extends HandsOnSuite {
   */
   exercice("Une fonction anonyme comme variable") {
     val lambda = (x: Int) => {
-      anchor(x)
+      pprint(x)
       x + 1
     }
 

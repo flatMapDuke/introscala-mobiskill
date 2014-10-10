@@ -69,7 +69,7 @@ class e4_listes extends HandsOnSuite {
     // inverse de la liste
     a.reverse should equal(__)
     // converti une liste en String
-    anchor(a.toString)
+    pprint(a.toString)
 
     // multiplie par 3 chaque élément de la liste
     // La fonction map permet de faire une opération sur chaque élément d’une collection.
