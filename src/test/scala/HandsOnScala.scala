@@ -1,22 +1,20 @@
 import bonus_event_sourcing._
 import cons_et_nil._
-import org.scalatest._
 import pas_suivant._
 import premiers_pas._
+import support.{TestFailed, HandsOnSuite}
 import type_classes._
 import un_sac_avec_des_items._
 import we_need_to_go_deeper._
 
-import scala.collection.immutable.{IndexedSeq => List}
 
-
-trait HandsOn extends Spec {
+trait HandsOn {
+  def nestedSuites: List[HandsOnSuite]
 
 }
 
-
-class HandsOnScala extends HandsOn {
-  override def nestedSuites = List(
+object HandsOnScala extends App {
+  def nestedSuites = List(
     new premiers_pas,
     new pas_suivant,
     new we_need_to_go_deeper,
@@ -25,6 +23,30 @@ class HandsOnScala extends HandsOn {
     new un_sac_avec_des_items,
     new bonus_event_sourcing
   )
+
+  import util.control.Breaks._
+
+  breakable {
+    for (suite <- nestedSuites;
+         subsuite <- suite.nestedSuites;
+         (testName, testFun) <- subsuite.testRegister
+    ) {
+
+      try {
+        testFun()
+
+      } catch {
+        case e: Exception => {
+          subsuite.reportToTheStopper.apply(TestFailed(Option(e), "", testName))
+          break()
+        }
+      }
+
+
+    }
+
+
+  }
 }
 
 class premiers_pas extends HandsOn {

@@ -64,10 +64,8 @@ class e5_maps extends HandsOnSuite {
     val aNewOtherMap = myMap -- List("BE", "BL")
     aNewOtherMap.contains("BE") should be(__)
     aNewOtherMap.contains("BL") should be(__)
-    // une exception est lancée dans le cas où l’élément n’est pas présent dans la map
-    intercept[NoSuchElementException] {
-      aNewOtherMap("BL") should be("Belfort")
-    }
+
+
   }
 
 }

@@ -1,23 +1,30 @@
 package recorder
 
-import org.scalatest.{Args, Tag, FunSuite}
-import java.io.File
 
 import collection.mutable.ArrayBuffer
-import org.scalatest.exceptions.TestFailedException
 import annotation.switch
 
-trait MyFunSuite extends FunSuite {
+trait MyFunSuite  {
 
   implicit val pprintRecorder = new PPrintRecorder()
 
+  var testRegister:List[(String, () => Unit)] = Nil
+
+
+
+
   def testPublic(testName: String)(testFun: => Unit) {
-   test(testName)(testFun)
+   testRegister = testRegister.:+ (testName -> (() => testFun))
   }
 }
 
+class TestFailedException(message:String) extends Exception(message)
+
+
 object MyFunSuite  {
+
   def testBody(testName: String, suite: MyFunSuite, anchorRecorder: PPrintRecorder)(testFun: => Unit)(context: TestContext) {
+
 
     suite.testPublic(testName)({
 
@@ -62,13 +69,13 @@ object MyFunSuite  {
         testFun
       } catch {
         case e: TestFailedException => {
-
-          val location = e.failedCodeFileNameAndLineNumberString.map(suitePackage + java.io.File.separator + _)
+          val element: StackTraceElement = e.getStackTrace()(2)
+          val location = exceptionToLocation(element)
 
           throw new MyTestFailedException(exceptionMessage(e)
-            , ctx(e.failedCodeLineNumber.toList)
+            , ctx(List(element.getLineNumber))
             , e
-            , location
+            , Option(location)
           )
 
         }
