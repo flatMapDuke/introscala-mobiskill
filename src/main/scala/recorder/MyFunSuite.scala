@@ -67,9 +67,6 @@ object MyFunSuite  {
         testFun
       } catch {
         case e: TestFailedException => {
-
-          e.printStackTrace()
-
           val element: StackTraceElement = e.getStackTrace()(2)
           val location = exceptionToLocation(element)
 

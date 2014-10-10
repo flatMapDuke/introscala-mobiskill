@@ -37,9 +37,6 @@ object HandsOnScala extends App {
 
       } catch {
         case e: Exception => {
-
-          e.printStackTrace()
-
           subsuite.reportToTheStopper.apply(TestFailed(Option(e), "", testName))
           break()
         }
