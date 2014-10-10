@@ -2,10 +2,6 @@ package recorder
 
 
 import reflect.macros.whitebox.Context
-import org.scalatest.exceptions._
-import reflect.internal.Chars
-import collection.mutable.ArrayBuffer
-import annotation.switch
 
 class RecorderMacro[C <: Context](val context: C) {
   import context.universe._
@@ -33,19 +29,6 @@ class RecorderMacro[C <: Context](val context: C) {
 
      context.Expr(tree)
 
-
-
-    /*reify {
-
-
-
-        val testExpressionLineStart:Int = context.literal(texts._2).splice
-
-        val testExpressionLineEnd:Int  = context.literal(texts._3).splice
-
-        MyFunSuite.testBody(testName.splice, suite.splice, anchorRecorder.splice)(testFun.splice)(new TestContext(
-          context.literal(texts._1).splice, testExpressionLineStart, testExpressionLineEnd))
-    }*/
   }
 
 

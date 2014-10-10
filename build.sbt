@@ -19,8 +19,6 @@ libraryDependencies += "org.scala-lang" % "scala-reflect" % "2.11.2"
 
 libraryDependencies += "org.scala-lang" % "scala-compiler" % "2.11.2"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.2"
-
 addCommandAlias("partie1-1", "~ test-only premiers_pas")
 
 addCommandAlias("partie1-2", "~ test-only pas_suivant")
@@ -35,4 +33,4 @@ addCommandAlias("partie5", "~ test-only un_sac_avec_des_items")
 
 addCommandAlias("partie6", "~ test-only bonus_event_sourcing")
 
-addCommandAlias("go", "~ test-only HandsOnScala")
+addCommandAlias("go", "~test:run")

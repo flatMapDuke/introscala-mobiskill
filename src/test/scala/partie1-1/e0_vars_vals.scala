@@ -17,12 +17,12 @@ import support.HandsOnSuite
 *
 *     - val : permet de déclarer une variable immuable (=que l'on ne pourra plus modifier une fois initialisée)
 */
-class e0_vars_vals extends HandsOnSuite {
+class e0_vars_vals extends HandsOnSuite  {
 
   exercice("Les vars peuvent être réaffectées") {
     var a = 5
     anchor(a)
-    a should be(__)
+    a should be(7)
     
     anchor(a)
 
