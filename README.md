@@ -6,8 +6,8 @@ Quick Start
 
 * Téléchargez et décompressez le zip : https://github.com/flatMapDuke/introscala-mobiskill/archive/master.zip
 * dans le repertoire dézippé, lancez :
-** Pour Mac/Linux, dans un terminal   ./handson go
-** Pour Window vous pouvez clicker sur handson.bat puis taper go dans l'invite de commande qui vient d'apparaître
+ * Pour Mac/Linux, dans un terminal   ./handson go
+ * Pour Window vous pouvez clicker sur handson.bat puis taper go dans l'invite de commande qui vient d'apparaître
 
 NB : L'atelier met un certain temps à récupérer ses dépendances depuis internet.
 
